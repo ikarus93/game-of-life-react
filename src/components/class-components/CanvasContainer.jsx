@@ -11,7 +11,8 @@ class CanvasContainer extends React.Component {
       xDimension: this.props.xDimension,
       yDimension: this.props.yDimension,
       gameRunning: false,
-      gameInterval: undefined
+      gameInterval: undefined,
+      hasSeed : false
     };
     this.createCanvas = this.createCanvas.bind(this);
     this.seedCanvas = this.seedCanvas.bind(this);
@@ -20,7 +21,6 @@ class CanvasContainer extends React.Component {
     this.endGame = this.endGame.bind(this);
     this.transformCanvas = this.transformCanvas.bind(this);
     this.addCell = this.addCell.bind(this);
-    
   }
 
   componentWillMount() {
@@ -65,7 +65,8 @@ class CanvasContainer extends React.Component {
     }
 
     this.setState({
-      canvas: canvas
+      canvas: canvas,
+      hasSeed: true
     });
   }
 
@@ -99,7 +100,7 @@ class CanvasContainer extends React.Component {
       }).length;
     }
     let canvas = this.state.canvas;
-    canvas =  canvas.map((row, i) => {
+    canvas = canvas.map((row, i) => {
       return row.map((cell, j) => {
         let neighbours = countNeighbours(canvas, i, j);
         if (cell) {
@@ -115,18 +116,17 @@ class CanvasContainer extends React.Component {
             return 0;
           }
         }
-        
-      })
-    })
-    
+      });
+    });
+
     this.setState({
       canvas: canvas
-    })
+    });
   }
 
   startGame() {
-      /* Starts an interval and changes game tracking state variables */
-    
+    /* Starts an interval and changes game tracking state variables */
+
     const gameInterval = setInterval(() => {
       this.transformCanvas();
     }, 1000);
@@ -135,34 +135,34 @@ class CanvasContainer extends React.Component {
       gameRunning: true,
       gameInterval: gameInterval
     });
-    
   }
-  
+
   pauseGame() {
-      /* Pauses the Game and changes game tracking state variables */
+    /* Pauses the Game and changes game tracking state variables */
     clearInterval(this.state.gameInterval);
     this.setState({
       gameRunning: false,
       gameInterval: undefined
-    })
+    });
   }
-  
+
   endGame() {
-      /* Clears the game canvas, game interval and sets game tracking variables to default state */
+    /* Clears the game canvas, game interval and sets game tracking variables to default state */
     this.createCanvas();
     clearInterval(this.state.gameInterval);
     this.setState({
       gameRunning: false,
-      gameInterval: undefined
-    })
+      gameInterval: undefined,
+      hasSeed: false
+    });
   }
-  
+
   addCell(i, j) {
     /* Integer, Integer -> undefined
     Adds living cell to canvas, triggered onclick
     Takes parameters i and j, to specify cell that triggered the event
     */
-    
+
     this.state.canvas[i][j] = 1;
     this.setState(this.state);
   }
@@ -170,7 +170,7 @@ class CanvasContainer extends React.Component {
   render() {
     return (
       <div>
-        <Canvas canvas={this.state.canvas} addCell={this.addCell}/>
+        <Canvas canvas={this.state.canvas} addCell={this.addCell} />
         {!this.state.gameRunning ? (
           <button id="start" onClick={this.startGame}>
             Start
@@ -180,7 +180,20 @@ class CanvasContainer extends React.Component {
             Pause
           </button>
         )}
-        <button id="reset" onClick={this.endGame}>Reset</button>
+        <button id="reset" onClick={this.endGame}>
+          Reset
+        </button>
+        <button
+          id="seed"
+          onClick={() => {
+            if (!this.state.hasSeed) {
+              this.seedCanvas();
+            }
+          }}
+        >
+          {" "}
+          Seed{" "}
+        </button>
       </div>
     );
   }
