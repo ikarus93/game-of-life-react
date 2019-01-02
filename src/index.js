@@ -1,0 +1,1 @@
+import Game from "./components/class-components/Game.jsx";
