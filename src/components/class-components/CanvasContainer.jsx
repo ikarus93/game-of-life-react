@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import Canvas from "../stateless-functional-components/Canvas.jsx";
+import CanvasControls from "../stateless-functional-components/CanvasControls.jsx";
 
 
 class CanvasContainer extends React.Component {
@@ -8,11 +9,13 @@ class CanvasContainer extends React.Component {
     super(props);
     this.state = {
       canvas: undefined,
-      xDimension: this.props.xDimension,
-      yDimension: this.props.yDimension,
+      xDimension: props.xDimension,
+      yDimension: props.yDimension,
       gameRunning: false,
       gameInterval: undefined,
-      hasSeed : false
+      hasSeed: false,
+      currentSpeed: 1,
+      speedTable: [2000, 1000, 500, 250]
     };
     this.createCanvas = this.createCanvas.bind(this);
     this.seedCanvas = this.seedCanvas.bind(this);
@@ -25,6 +28,31 @@ class CanvasContainer extends React.Component {
 
   componentWillMount() {
     this.createCanvas();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    //Only change speed if new speed differes from original speed, to avoid useless rerendering
+    if (nextProps.speed !== this.state.speed) {
+      this.state.speed = nextProps.speed;
+      if (this.state.gameRunning) {
+        clearInterval(this.state.gameInterval);
+        this.state.gameInterval = setInterval(
+          this.transformCanvas,
+          this.state.speedTable[nextProps.speed]
+        );
+      }
+      this.setState(this.state);
+    }
+
+    if (
+      nextProps.xDimension !== this.state.xDimension &&
+      nextProps.yDimension !== this.state.yDimension
+    ) {
+      this.state.xDimension = nextProps.xDimension;
+      this.state.yDimension = nextProps.yDimension;
+      this.setState(this.state);
+      this.endGame();
+    }
   }
 
   createCanvas() {
@@ -48,7 +76,7 @@ class CanvasContainer extends React.Component {
 
     let canvas = this.state.canvas;
 
-    const amount = getRandomNum(canvas.length, canvas.length * 2);
+    const amount = getRandomNum(canvas.length * 2, canvas.length * 3);
     for (let i = 0; i < amount; i++) {
       let x, y;
 
@@ -122,6 +150,7 @@ class CanvasContainer extends React.Component {
     this.setState({
       canvas: canvas
     });
+    this.props.updateGenerations(0);
   }
 
   startGame() {
@@ -129,11 +158,12 @@ class CanvasContainer extends React.Component {
 
     const gameInterval = setInterval(() => {
       this.transformCanvas();
-    }, 1000);
+    }, this.state.speedTable[this.state.speed]);
 
     this.setState({
       gameRunning: true,
-      gameInterval: gameInterval
+      gameInterval: gameInterval,
+      hasSeed: true
     });
   }
 
@@ -155,6 +185,7 @@ class CanvasContainer extends React.Component {
       gameInterval: undefined,
       hasSeed: false
     });
+    this.props.updateGenerations(1);
   }
 
   addCell(i, j) {
@@ -169,31 +200,16 @@ class CanvasContainer extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="canvas-container">
         <Canvas canvas={this.state.canvas} addCell={this.addCell} />
-        {!this.state.gameRunning ? (
-          <button id="start" onClick={this.startGame}>
-            Start
-          </button>
-        ) : (
-          <button id="pause" onClick={this.pauseGame}>
-            Pause
-          </button>
-        )}
-        <button id="reset" onClick={this.endGame}>
-          Reset
-        </button>
-        <button
-          id="seed"
-          onClick={() => {
-            if (!this.state.hasSeed) {
-              this.seedCanvas();
-            }
-          }}
-        >
-          {" "}
-          Seed{" "}
-        </button>
+        <CanvasControls
+          gameRunning={this.state.gameRunning}
+          startGame={this.startGame}
+          pauseGame={this.pauseGame}
+          endGame={this.endGame}
+          hasSeed={this.state.hasSeed}
+          seedCanvas={this.seedCanvas}
+        />
       </div>
     );
   }
