@@ -5,6 +5,7 @@ import CanvasControls from "../stateless-functional-components/CanvasControls.js
 
 
 class CanvasContainer extends React.Component {
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -12,11 +13,12 @@ class CanvasContainer extends React.Component {
       xDimension: props.xDimension,
       yDimension: props.yDimension,
       gameRunning: false,
-      gameInterval: undefined,
+      gameInterval: undefined, //tracks interval id 
       hasSeed: false,
-      currentSpeed: 1,
+      currentSpeed: 1,   //used to map to index in this.state.speedTable
       speedTable: [2000, 1000, 500, 250]
     };
+    
     this.createCanvas = this.createCanvas.bind(this);
     this.seedCanvas = this.seedCanvas.bind(this);
     this.startGame = this.startGame.bind(this);
@@ -43,7 +45,8 @@ class CanvasContainer extends React.Component {
       }
       this.setState(this.state);
     }
-
+    
+    //Change size of canvas if size differs
     if (
       nextProps.xDimension !== this.state.xDimension &&
       nextProps.yDimension !== this.state.yDimension
@@ -99,7 +102,7 @@ class CanvasContainer extends React.Component {
   }
 
   transformCanvas() {
-    /*      Transforms the canvas based on the main rule set:
+    /*  Transforms the canvas based on the main rule set:
       - Any live cell with fewer than two live neighbors dies, as if by underpopulation.
       - Any live cell with two or three live neighbors lives on to the next generation.
       - Any live cell with more than three live neighbors dies, as if by overpopulation.
