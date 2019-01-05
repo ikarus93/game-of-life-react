@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import PropTypes from 'prop-types';
+
 
 const Canvas = props => {
   return (
@@ -19,5 +21,12 @@ const Canvas = props => {
     </table>
   );
 };
+
+//PropTypes
+
+Canvas.propTypes = {
+  canvas: PropTypes.arrayOf(PropTypes.array),
+  addCell: PropTypes.func
+}
 
 export default Canvas;

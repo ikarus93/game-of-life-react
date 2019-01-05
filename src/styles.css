@@ -54,6 +54,11 @@ button {
   border: 2px solid rgb(29, 30, 30);
   margin: 10px 20px;
 }
+
+.canvas-button {
+  width: 100px;
+}
+
 td:hover {
   cursor: pointer;
 }
@@ -95,7 +100,7 @@ button:hover {
 
 .help {
   position: relative;
-  left: 215px;
+  left: 205px;
   top: -47px;
   margin: 0;
 }

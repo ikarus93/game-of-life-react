@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import PropTypes from 'prop-types';
 
 const HelpBox = props => {
   return (
@@ -19,6 +20,12 @@ const HelpBox = props => {
     </div>
   );
 };
+
+//PropTypes
+
+HelpBox.propTypes = {
+  changeHelpState: PropTypes.func
+}
 
 
 export default HelpBox;

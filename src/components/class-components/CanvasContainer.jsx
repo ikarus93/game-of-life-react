@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import Canvas from "../stateless-functional-components/Canvas.jsx";
 import CanvasControls from "../stateless-functional-components/CanvasControls.jsx";
+import PropTypes from 'prop-types';
 
 
 class CanvasContainer extends React.Component {
@@ -217,5 +218,15 @@ class CanvasContainer extends React.Component {
     );
   }
 }
+
+
+//PropTypes
+
+CanvasContainer.propTypes = {
+  xDimension: PropTypes.number,
+  yDimension: PropTypes.number
+}
+
+
 
 export default CanvasContainer;

@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import PropTypes from 'prop-types';
+
 
 const SizeControl = props => {
   return (
@@ -16,5 +18,11 @@ const SizeControl = props => {
     </div>
   );
 };
+
+//PropTypes
+
+SizeControl.propTypes = {
+  changeSize: PropTypes.func
+}
 
 export default SizeControl;
