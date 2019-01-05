@@ -1,0 +1,137 @@
+* {
+  box-sizing: border-box;
+}
+html, body {
+    width: 100%;
+}
+body {
+  background-color: rgb(29, 30, 30);
+  font-family: 'Comfortaa', cursive;
+
+}
+.main-container {
+  margin: 0 auto;
+  text-align: center;
+}
+
+h1 {
+  margin: 40px;
+  color: #808080;
+  font-family: 'Dancing Script', cursive;
+}
+table, tbody, tr {
+    display: block;
+}
+
+
+table {
+  text-align: center;
+  margin: 20px auto;
+  border-collapse: collapse;
+}
+tr {
+  margin-top: -9px;
+}
+
+td {
+  display: inline-block;
+  color: rgb(29, 30, 30);
+  font-size: 0px;
+  border: 1px solid grey;
+  width: 15px;
+  height: 15px;
+  margin: 0 auto;
+}
+
+.alive {
+  background-color: #DC3545;
+  color: #DC3545;
+}
+
+button {
+  background-color: #00ff00;
+  color: rgb(29, 30, 30);
+  border: 2px solid rgb(29, 30, 30);
+  margin: 10px 20px;
+}
+td:hover {
+  cursor: pointer;
+}
+button:hover {
+  cursor: pointer;
+}
+
+.speedcontrol {
+  margin: 20px;
+  -webkit-appearance: none;
+  width: 10%;
+  height: 10px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+  border-radius: 5px;
+}
+.speedcontrol::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%; 
+  background: #DC3545;
+  cursor: pointer;
+}
+
+.speedcontrol-label {
+  color: #808080;
+  margin-left: 20px;
+}
+
+.generations {
+  color: #808080;
+  margin-top: 20px;
+}
+
+.help {
+  position: relative;
+  left: 215px;
+  top: -47px;
+  margin: 0;
+}
+
+.help-box-container {
+  padding-top: 40px;
+  background-color: rgba(0,0,0,0.4);
+  color: #808080;
+}
+
+.help-box-container ul {
+  list-style: none;
+}
+
+.animated {
+  animation: shake 1.3s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}

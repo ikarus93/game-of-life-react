@@ -1,3 +1,6 @@
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+
 const Canvas = props => {
   return (
     <table className="canvas">
@@ -7,7 +10,7 @@ const Canvas = props => {
             <tr key={i}>
               {" "}
               {row.map((cell, j) => {
-                return <td key={j} class={cell ? "alive" : "dead"} onClick={() => { props.addCell(i, j)}}>{cell}</td>;
+                return <td key={j} className={cell ? "alive" : "dead"} onClick={() => { props.addCell(i, j)}}>{cell}</td>;
               })}
             </tr>
           );

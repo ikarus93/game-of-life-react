@@ -1,3 +1,6 @@
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+
 const SpeedControl = props => {
   return (
     <input
