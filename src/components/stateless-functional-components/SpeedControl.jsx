@@ -3,15 +3,15 @@ import ReactDOM from "react-dom";
 import PropTypes from 'prop-types';
 
 
-const SpeedControl = props => {
+const SpeedControl = ({changeGameSpeed, gameSpeed}) => {
   return (
     <input
       className="speedcontrol"
       type="range"
       min="0"
       max="3"
-      onChange={props.changeGameSpeed}
-      value={props.gameSpeed}
+      onChange={changeGameSpeed}
+      value={gameSpeed}
     />
   );
 };

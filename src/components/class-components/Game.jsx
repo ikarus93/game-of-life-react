@@ -5,7 +5,7 @@ import SizeControl from "../stateless-functional-components/SizeControl.jsx";
 import SpeedControl from "../stateless-functional-components/SpeedControl.jsx";
 import HelpBox from "../stateless-functional-components/HelpBox.jsx";
 
-class Game extends React.Component {
+class Game extends Component {
   constructor() {
     super();
     this.state = {

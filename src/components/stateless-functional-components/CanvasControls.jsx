@@ -3,28 +3,28 @@ import ReactDOM from "react-dom";
 import PropTypes from 'prop-types';
 
 
-const CanvasControls = props => {
+const CanvasControls = ({startGame, pauseGame, endGame, hasSeed, seedCanvas}) => {
   return (
     <div>
       {" "}
       {!props.gameRunning ? (
-        <button id="start" onClick={props.startGame} className="btn btn-danger canvas-button">
+        <button id="start" onClick={startGame} className="btn btn-danger canvas-button">
           Start
         </button>
       ) : (
-        <button id="pause" onClick={props.pauseGame} className="btn btn-danger canvas-button">
+        <button id="pause" onClick={pauseGame} className="btn btn-danger canvas-button">
           Pause
         </button>
       )}
-      <button id="reset" onClick={props.endGame} className="btn btn-danger canvas-button">
+      <button id="reset" onClick={endGame} className="btn btn-danger canvas-button">
         Reset
       </button>
       <button
         id="seed"
         className="btn btn-danger canvas-button"
         onClick={() => {
-          if (!props.hasSeed) {
-            props.seedCanvas();
+          if (!hasSeed) {
+            seedCanvas();
           }
         }}
       >

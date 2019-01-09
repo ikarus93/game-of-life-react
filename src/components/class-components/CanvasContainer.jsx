@@ -5,7 +5,7 @@ import CanvasControls from "../stateless-functional-components/CanvasControls.js
 import PropTypes from 'prop-types';
 
 
-class CanvasContainer extends React.Component {
+class CanvasContainer extends Component {
   
   constructor(props) {
     super(props);

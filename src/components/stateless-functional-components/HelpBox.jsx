@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import PropTypes from 'prop-types';
 
-const HelpBox = props => {
+const HelpBox = ({changeHelpState}) => {
   return (
     <div className="help-box-container">
       <h2>Help</h2>
@@ -14,7 +14,7 @@ const HelpBox = props => {
         <li>Press Reset to stop the game and clear the canvas.</li>
         <li>Use the slider to change the Speed. From Slow -> Fast</li>
       </ul>
-      <button className="btn btn-danger" onClick={props.changeHelpState}>
+      <button className="btn btn-danger" onClick={changeHelpState}>
         Close
       </button>
     </div>
